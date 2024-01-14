@@ -1,29 +1,29 @@
-package com.xworkz.project.boot;
+package com.xworkz.project.trafficefine;
 
-
-import com.xworkz.project.entity.ActorEntity;
-import com.xworkz.project.entity.TransportEntity;
-
+import com.xworkz.project.entity.TrafficFIneEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class ActorExecutor {
+public class TrafficFIneDeleteRunner {
+
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         et.begin();
-
-        ActorEntity actorEntity=new ActorEntity(1,"Allu arjun",32,"Pushpa","telugu");
-        em.persist(actorEntity);
-        System.out.println("Data inserted");
+        TrafficFIneEntity trafficFIneEntity = (TrafficFIneEntity)em.find(TrafficFIneEntity.class, 5);
+        if (trafficFIneEntity != null) {
+            em.remove(trafficFIneEntity);
+            System.out.println("Data deleted ..!");
+        } else {
+            System.out.println("Data not removied");
+        }
 
         et.commit();
-        System.out.println("Closing");
-
         em.close();
         emf.close();
     }
 }
+
